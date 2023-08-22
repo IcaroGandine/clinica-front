@@ -5,7 +5,16 @@ defineProps<{
 </script>
 
 <template>
-  <header><input placeholder="Search or paste URL" /></header>
+  <header>
+    <v-btn :ripple="false" variant="plain">
+      <v-icon icon="mdi-magnify" />
+    </v-btn>
+
+    <input placeholder="Search or paste URL" />
+    <v-btn :ripple="false" variant="plain">
+      <v-icon icon="mdi-plus" />
+    </v-btn>
+  </header>
 </template>
 
 <style scoped>
