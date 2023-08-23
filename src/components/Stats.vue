@@ -7,47 +7,54 @@ import { ref, onMounted } from "vue";
 import StatBlock from "./StatBlock.vue";
 import axios from "axios";
 
-const el = ref();
+const data = ref(null);
 
-onMounted(() => {
-  fetchData();
-});
-
-const fetchData = () => {
+const fetchData = async () => {
   const apiUrl = "http://localhost:8000/api/links/summary"; // Substitua pela URL real da sua API
-  axios
+  await axios
     .get(apiUrl)
     .then((response) => {
-      this.data = response.data;
+      data.value = response.data;
+      console.log(data);
     })
     .catch((error) => {
       console.error("Erro na solicitação da API:", error);
     });
 };
+
+onMounted(fetchData);
 </script>
 
 <template>
-  <div class="wrapper">
+  <div v-if="data" class="wrapper">
     <p class="stats-title">STATS</p>
     <div class="stats">
       <div class="stat">
-        <StatBlock iconName="mdi-link-variant" name="Links" content="71" />
+        <StatBlock
+          iconName="mdi-link-variant"
+          name="Links"
+          :content="data.totalLinks"
+        />
       </div>
       <div class="stat">
-        <StatBlock iconName="mdi-eye-outline" name="Views" content="249" />
+        <StatBlock
+          iconName="mdi-eye-outline"
+          name="Views"
+          :content="data.totalViews"
+        />
       </div>
       <div class="stat">
         <StatBlock
           iconName="mdi-cursor-default-click-outline"
           name="Clicks"
-          content="53"
+          :content="data.totalClicks"
         />
       </div>
       <div class="stat">
         <StatBlock
           iconName="mdi-chart-areaspline"
           name="Avg. CTR"
-          content="21%"
+          :content="data.avgCtr"
         />
       </div>
       <div class="stat">
@@ -61,6 +68,8 @@ const fetchData = () => {
 
     <hr />
   </div>
+
+  <div v-else>Loading...</div>
 </template>
 
 <style scoped>
