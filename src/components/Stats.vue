@@ -10,9 +10,10 @@ import axios from "axios";
 const data = ref(null);
 
 const fetchData = async () => {
-  const apiUrl = "http://localhost:8000/api/links/summary"; // Substitua pela URL real da sua API
+  const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
+  const summary = apiUrl + "/links/summary";
   await axios
-    .get(apiUrl)
+    .get(summary)
     .then((response) => {
       data.value = response.data;
       console.log(data);

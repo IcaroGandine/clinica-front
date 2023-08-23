@@ -5,9 +5,11 @@ import axios from "axios";
 
 const data = ref(null);
 const fetchData = async () => {
-  const apiUrl = "http://localhost:8000/api/links/getAll"; // Substitua pela URL real da sua API
+  const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
+
+  const getAll = apiUrl + "/links/getAll";
   await axios
-    .get(apiUrl)
+    .get(getAll)
     .then((response) => {
       data.value = response.data;
       console.log(data);
@@ -17,14 +19,19 @@ const fetchData = async () => {
     });
 };
 
-onMounted(fetchData);
+let origin = "";
+
+onMounted(() => {
+  fetchData();
+  origin = window.location.origin;
+});
 </script>
 
 <template>
   <div v-for="link in data" style="width: 100%">
     <LinkCard
       :name="link.name"
-      :shortUrl="'localhost:5173/' + link.code"
+      :shortUrl="origin + '/' + link.code"
       :trueUrl="link.url"
       :views="link.views"
     />
