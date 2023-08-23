@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import Header from "./Header.vue";
 import Stats from "./Stats.vue";
+import Links from "./Links.vue";
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import Stats from "./Stats.vue";
     <Header />
     <div class="content-wrapper">
       <Stats />
+      <Links />
     </div>
   </div>
 </template>
@@ -25,5 +27,6 @@ import Stats from "./Stats.vue";
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 </style>
