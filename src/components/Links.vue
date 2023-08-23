@@ -22,7 +22,12 @@ onMounted(fetchData);
 
 <template>
   <div v-for="link in data" style="width: 100%">
-    <LinkCard name="testr" shortUrl="test" trueUrl="trest" views="42" />
+    <LinkCard
+      :name="link.name"
+      :shortUrl="'localhost:5173/' + link.code"
+      :trueUrl="link.url"
+      :views="link.views"
+    />
   </div>
 </template>
 
