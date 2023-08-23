@@ -1,10 +1,32 @@
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
+import DeleteDialog from "./DeleteDialog.vue";
 defineProps<{
   name: string;
   shortUrl: string;
   trueUrl: string;
   views: number;
 }>();
+
+const dialog = ref(false);
+
+const openDialog = () => {
+  dialog.value = true;
+};
+
+const closeDialog = () => {
+  dialog.value = false;
+};
+
+const onConfirm = () => {
+  // Lógica a ser executada quando o botão "Sim" é clicado
+  console.log("Ação confirmada!");
+  closeDialog();
+};
+
+const onClose = () => {
+  closeDialog();
+};
 </script>
 
 <template>
@@ -32,7 +54,15 @@ defineProps<{
         <v-icon style="cursor: pointer" icon="mdi-square-edit-outline" />
       </button>
 
-      <button class="no-color" :ripple="false" variant="plain">
+      <button
+        @click="openDialog"
+        class="no-color"
+        :ripple="false"
+        variant="plain"
+      >
+        <DeleteDialog :dialog="dialog" @close="onClose" @confirm="onConfirm">
+          Tem certeza que deseja apagar o link?
+        </DeleteDialog>
         <v-icon style="cursor: pointer" icon="mdi-trash-can-outline" />
       </button>
     </div>
