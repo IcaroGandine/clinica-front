@@ -54,7 +54,7 @@ onMounted(fetchData);
         <StatBlock
           iconName="mdi-chart-areaspline"
           name="Avg. CTR"
-          :content="data.avgCtr"
+          :content="data.avgCtr + '%'"
         />
       </div>
       <div class="stat">
