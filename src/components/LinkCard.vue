@@ -1,14 +1,33 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import DeleteDialog from "./DeleteDialog.vue";
-defineProps<{
+import { defineProps, defineEmits } from "vue";
+import axios from "axios"; // Certifique-se de importar o axios
+
+const props = defineProps<{
   name: string;
   shortUrl: string;
   trueUrl: string;
   views: number;
+  linkId: number;
 }>();
 
 const dialog = ref(false);
+const emit = defineEmits(["linkDeleted"]);
+
+const deleteLink = async () => {
+  const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
+
+  const deleteEndpoint = apiUrl + "/links/delete/" + props.linkId.toString();
+  await axios
+    .delete(deleteEndpoint)
+    .then((response) => {
+      emit("linkDeleted", props.linkId);
+    })
+    .catch((error) => {
+      console.error("Erro na solicitação da API:", error);
+    });
+};
 
 const openDialog = () => {
   dialog.value = true;
@@ -19,8 +38,7 @@ const closeDialog = () => {
 };
 
 const onConfirm = () => {
-  // Lógica a ser executada quando o botão "Sim" é clicado
-  console.log("Ação confirmada!");
+  deleteLink();
   closeDialog();
 };
 

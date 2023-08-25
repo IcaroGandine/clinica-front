@@ -3,7 +3,9 @@ import LinkCard from "./LinkCard.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const data = ref(null);
+const data = ref([]);
+const itemRefs = ref([]);
+
 const fetchData = async () => {
   const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
 
@@ -19,6 +21,11 @@ const fetchData = async () => {
     });
 };
 
+const handleLinkDeleted = (linkId) => {
+  console.log("event printed");
+  fetchData();
+};
+
 let origin = "";
 
 onMounted(() => {
@@ -28,12 +35,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-for="link in data" style="width: 100%">
+  <div ref="itemRef" v-for="link in data" style="width: 100%">
     <LinkCard
       :name="link.name"
       :shortUrl="origin + '/' + link.code"
       :trueUrl="link.url"
       :views="link.views"
+      :linkId="link.id"
+      @linkDeleted="handleLinkDeleted"
     />
   </div>
 </template>
