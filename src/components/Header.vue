@@ -2,16 +2,36 @@
 defineProps<{
   msg: string;
 }>();
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const createLink = async () => {
+  router.push("/create");
+};
+
+const searchLink = async () => {
+  //  const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
+  // const deleteEndpoint = apiUrl + "/links/delete/" + props.linkId.toString();
+  // await axios
+  //   .delete(deleteEndpoint)
+  //   .then((response) => {
+  //     emit("linkDeleted", props.linkId);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Erro na solicitação da API:", error);
+  //   });
+};
 </script>
 
 <template>
   <header>
-    <v-btn :ripple="false" variant="plain">
+    <v-btn @click="searchLink" :ripple="false" variant="plain">
       <v-icon icon="mdi-magnify" />
     </v-btn>
 
     <input placeholder="Search or paste URL" />
-    <v-btn :ripple="false" variant="plain">
+    <v-btn @click="createLink" :ripple="false" variant="plain">
       <v-icon icon="mdi-plus" />
     </v-btn>
   </header>
