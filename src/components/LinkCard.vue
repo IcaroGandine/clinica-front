@@ -3,6 +3,8 @@ import { ref, onMounted } from "vue";
 import DeleteDialog from "./DeleteDialog.vue";
 import { defineProps, defineEmits } from "vue";
 import axios from "axios"; // Certifique-se de importar o axios
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const props = defineProps<{
   name: string;
@@ -45,6 +47,10 @@ const onConfirm = () => {
 const onClose = () => {
   closeDialog();
 };
+
+const editLink = () => {
+  router.push(`/edit/${props.linkId}`);
+};
 </script>
 
 <template>
@@ -68,7 +74,12 @@ const onClose = () => {
         <v-icon style="cursor: pointer" icon="mdi-content-copy" />
       </button>
 
-      <button class="no-color" :ripple="false" variant="plain">
+      <button
+        @click="editLink"
+        class="no-color"
+        :ripple="false"
+        variant="plain"
+      >
         <v-icon style="cursor: pointer" icon="mdi-square-edit-outline" />
       </button>
 
