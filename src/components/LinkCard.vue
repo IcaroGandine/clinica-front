@@ -60,7 +60,7 @@ const editLink = () => {
         {{ name }}
       </span>
 
-      <a href="" class="url">
+      <a :href="shortUrl" class="url">
         {{ shortUrl }}
       </a>
     </div>

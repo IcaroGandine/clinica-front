@@ -38,7 +38,7 @@ onMounted(() => {
   <div ref="itemRef" v-for="link in data" style="width: 100%">
     <LinkCard
       :name="link.name"
-      :shortUrl="origin + '/' + link.code"
+      :shortUrl="origin + '/link/' + link.code"
       :trueUrl="link.url"
       :views="link.views"
       :linkId="link.id"
