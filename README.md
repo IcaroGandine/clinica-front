@@ -1,40 +1,32 @@
-# clinica-front
+# Encurtador de links - FRONT-END
 
-This template should help get you started developing with Vue 3 in Vite.
+## Introdução
+Este projeto é um encurtador de links desenvolvido para servir como um teste técnico de desenvolvimento. O repositório atual é o projeto do front-end
 
-## Recommended IDE Setup
+* LINK DO BACK-END: https://github.com/IcaroGandine/clinica
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Tecnologias utilizadas
 
-## Type Support for `.vue` Imports in TS
+### Back-end
+* Laravel (versão 10)
+* PHP (versão 8)
+* Banco de dados Postgres (atualmente hospedado no Render https://render.com/)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### Front-end
+* Vue (versão 3)
+* Typescript
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Como rodar o projeto
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### Preparando o back-end
+1 - Clone este repositório <br>
+2 - Abra um terminal na pasta clonada <br> 
+3 - Instale as dependências rodando `npm install` <br>
+4 - Este projeto usa variáveis de ambiente apenas para salvar a URL padrão da API, não é necessário pedi-la já que eu subi no repositório <br>
+5 - Rode `npm run dev` <br>
 
-## Customize configuration
+OBS 1: As variáveis de ambiente do front não possuem nenhum dado sensível, por isso subi no git para facilitar a configuração do projeto <br>
+OBS 2: Lembrar de ajustar a URL padrão da API no .env do front, caso queira usar outra porta ou rodar o front apontando para outra API <br>
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
