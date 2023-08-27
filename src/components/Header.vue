@@ -4,33 +4,31 @@ defineProps<{
 }>();
 
 import { useRouter } from "vue-router";
+import { ref, onMounted, watch } from "vue";
+import { useSearchStore } from "@/stores/search";
 const router = useRouter();
+const store = useSearchStore();
+
+const inputValue = ref("");
+
+const searchValue = store.search;
 
 const createLink = async () => {
   router.push("/create");
 };
 
-const searchLink = async () => {
-  //  const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
-  // const deleteEndpoint = apiUrl + "/links/delete/" + props.linkId.toString();
-  // await axios
-  //   .delete(deleteEndpoint)
-  //   .then((response) => {
-  //     emit("linkDeleted", props.linkId);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Erro na solicitação da API:", error);
-  //   });
-};
+watch(inputValue, (newValue) => {
+  store.search = newValue;
+});
 </script>
 
 <template>
   <header>
-    <v-btn @click="searchLink" :ripple="false" variant="plain">
+    <v-btn @click="emitSearch" :ripple="false" variant="plain">
       <v-icon icon="mdi-magnify" />
     </v-btn>
 
-    <input placeholder="Search or paste URL" />
+    <input v-model="inputValue" placeholder="Search URL or name" />
     <v-btn @click="createLink" :ripple="false" variant="plain">
       <v-icon icon="mdi-plus" />
     </v-btn>

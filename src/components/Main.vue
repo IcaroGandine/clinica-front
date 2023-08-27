@@ -3,14 +3,17 @@ import { RouterLink, RouterView } from "vue-router";
 import Header from "./Header.vue";
 import Stats from "./Stats.vue";
 import Links from "./Links.vue";
+import { ref, onMounted } from "vue";
+
+const searchRef = ref("");
 </script>
 
 <template>
   <div class="bg">
-    <Header />
+    <Header @searchEvent="handleSearch" />
     <div class="content-wrapper">
       <Stats />
-      <Links />
+      <Links :searchTerm="searchRef.value" />
     </div>
   </div>
 </template>

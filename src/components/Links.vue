@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import LinkCard from "./LinkCard.vue";
-import { ref, onMounted } from "vue";
+import { watch, ref, onMounted, defineProps, toRefs } from "vue";
 import axios from "axios";
+import { useSearchStore } from "@/stores/search";
+import { storeToRefs } from "pinia";
 
 const data = ref([]);
 const itemRefs = ref([]);
 const selectedFilter = ref(null);
+const store = useSearchStore();
+const { search } = storeToRefs(store);
 
 const fetchData = async () => {
   const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
@@ -25,7 +29,12 @@ const fetchData = async () => {
 const getFiltered = async (filter) => {
   const apiUrl = import.meta.env.VITE_APP_APIBASEURL;
 
-  const getByFilter = apiUrl + `/links/getByFilter?filter=${filter}`;
+  const hasSearchTerm = search && search != "";
+  if (!filter) filter = "name";
+
+  const getByFilter = hasSearchTerm
+    ? apiUrl + `/links/getByFilter?filter=${filter}&search=${search.value}`
+    : apiUrl + `/links/getByFilter?filter=${filter}`;
   await axios
     .get(getByFilter)
     .then((response) => {
@@ -52,6 +61,11 @@ let origin = "";
 onMounted(() => {
   fetchData();
   origin = window.location.origin;
+});
+
+watch(search, (newValue) => {
+  getFiltered(selectedFilter.value);
+  console.log(selectedFilter);
 });
 </script>
 
